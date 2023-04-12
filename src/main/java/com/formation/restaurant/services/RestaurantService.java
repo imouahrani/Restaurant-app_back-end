@@ -6,4 +6,6 @@ import java.util.*;
 
 public interface RestaurantService {
     public List<Restaurant> findAll();
+
+    Restaurant findById(String id);
 }
