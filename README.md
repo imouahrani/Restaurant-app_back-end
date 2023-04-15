@@ -1,7 +1,7 @@
 # Restaurant-app
 ## POST
-![POST](POST.PNG)
+![POST.png](POST.PNG)
 ## Get with Post id
-![Get with Post id](getPost.PNG)
+![getPost.PNG](getPost.PNG)
 ## Post h2 vérification
-![post h2](h2_post.PNG)
+![h2_post.PNG](h2_post.PNG)
