@@ -43,4 +43,10 @@ public class RestaurantServiceImpl implements RestaurantService {
         return restoRepository.save(restaurant).getId();
     }
 
+    @Override
+    public void update(String identifiant, Restaurant restaurant) {
+        restaurant.setId(identifiant);
+        restoRepository.save(restaurant); // mettre à jour tout l'objet restaurant
+    }
+
 }

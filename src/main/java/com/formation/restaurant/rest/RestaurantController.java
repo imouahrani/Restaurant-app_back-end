@@ -36,4 +36,13 @@ public class RestaurantController {
     public String create(@RequestBody Restaurant restaurant){
         return restoService.create(restaurant);
     }
+    @PutMapping("/{id}")
+    @ResponseStatus(code = HttpStatus.OK)
+    public void update(@PathVariable("id") String identifiant, @RequestBody Restaurant restaurant){
+        Restaurant reponse = restoService.findById(identifiant);
+        if(reponse == null){
+            throw new RessourceNotFoundException();
+        }
+         restoService.update(identifiant, restaurant);
+    }
 }
