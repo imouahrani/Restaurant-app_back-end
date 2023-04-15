@@ -38,4 +38,9 @@ public class RestaurantServiceImpl implements RestaurantService {
         // findById(id) retourne un optionnal : si il existe en bdd ou pas
     }
 
+    @Override
+    public String create(Restaurant restaurant) {
+        return restoRepository.save(restaurant).getId();
+    }
+
 }
