@@ -45,4 +45,13 @@ public class RestaurantController {
         }
          restoService.update(identifiant, restaurant);
     }
+    @PatchMapping("/{id}")
+    @ResponseStatus(code = HttpStatus.OK)
+    public void partialUpdate(@PathVariable("id") String identifiant, @RequestBody Map<String,Object> updates){
+        Restaurant reponse = restoService.findById(identifiant);
+        if(reponse == null){
+            throw new RessourceNotFoundException();
+        }
+        restoService.partialUpdate(identifiant, updates);
+    }
 }

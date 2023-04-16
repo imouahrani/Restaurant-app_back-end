@@ -12,4 +12,6 @@ public interface RestaurantService {
     String create(Restaurant restaurant);
 
     void update(String identifiant, Restaurant restaurant);
+
+    void partialUpdate(String identifiant, Map<String, Object> updates);
 }
