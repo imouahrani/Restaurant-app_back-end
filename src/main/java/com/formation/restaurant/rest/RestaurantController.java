@@ -3,6 +3,7 @@ package com.formation.restaurant.rest;
 import com.formation.restaurant.exceptions.RessourceNotFoundException;
 import com.formation.restaurant.models.Restaurant;
 import com.formation.restaurant.services.RestaurantService;
+import com.formation.restaurant.util.CtrlPreConditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -26,9 +27,7 @@ public class RestaurantController {
     public Restaurant findById(@PathVariable("id") String identifiant){
         // comment à partir de ce controleur on aura accès au service de spring ? => injection de dépendances
         Restaurant reponse = restoService.findById(identifiant);
-        if(reponse == null){
-            throw new RessourceNotFoundException();
-        }
+        CtrlPreConditions.checkfound(reponse);
         return reponse;
     }
     @PostMapping
@@ -39,28 +38,19 @@ public class RestaurantController {
     @PutMapping("/{id}")
     @ResponseStatus(code = HttpStatus.OK)
     public void update(@PathVariable("id") String identifiant, @RequestBody Restaurant restaurant){
-        Restaurant reponse = restoService.findById(identifiant);
-        if(reponse == null){
-            throw new RessourceNotFoundException();
-        }
-         restoService.update(identifiant, restaurant);
+        CtrlPreConditions.checkfound(restoService.findById(identifiant));
+        restoService.update(identifiant, restaurant);
     }
     @PatchMapping("/{id}")
     @ResponseStatus(code = HttpStatus.OK)
     public void partialUpdate(@PathVariable("id") String identifiant, @RequestBody Map<String,Object> updates){
-        Restaurant reponse = restoService.findById(identifiant);
-        if(reponse == null){
-            throw new RessourceNotFoundException();
-        }
+        CtrlPreConditions.checkfound(restoService.findById(identifiant));
         restoService.partialUpdate(identifiant, updates);
     }
     @DeleteMapping("/{id}")
     @ResponseStatus(code = HttpStatus.OK)
     public void deleteById(@PathVariable("id") String identifiant){
-        Restaurant reponse = restoService.findById(identifiant);
-        if(reponse == null){
-            throw new RessourceNotFoundException();
-        }
+        CtrlPreConditions.checkfound(restoService.findById(identifiant));
         restoService.deleteById(identifiant);
     }
 }
