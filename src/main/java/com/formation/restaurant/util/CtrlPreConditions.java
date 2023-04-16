@@ -1,14 +1,17 @@
 package com.formation.restaurant.util;
 
 import com.formation.restaurant.exceptions.RessourceNotFoundException;
-import com.formation.restaurant.models.Restaurant;
+
 
 // classe non modifiable
+// passer n'importe quel objet pas que le restaurant mais aussi le menu
+// rendre la méthode générique
+// tester si l'objet est null sinon retourner un not found exception
 public final class  CtrlPreConditions {
-    public static Restaurant checkfound(Restaurant restaurant){
-        if(restaurant == null){
+    public static <T> T  checkfound( T object){
+        if(object == null){
             throw new RessourceNotFoundException();
         }
-        return restaurant;
+        return object;
     }
 }
