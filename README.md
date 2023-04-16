@@ -1,7 +1,7 @@
 # Restaurant-app
 ## All restautaurants before delete operation
-![delete_1.PNG](delete_1.PNG)
+![1_delete.PNG](1_delete.PNG)
 ## BDD before delete operation
-![delete_3.PNG](delete_2.PNG)
+![2_delete.PNG](2_delete.PNG)
 ## All restautaurants after delete operation
-![delete_3.PNG](delete_3.PNG)
+![3_delete.PNG](3_delete.PNG)
