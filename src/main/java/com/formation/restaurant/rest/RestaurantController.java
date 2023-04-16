@@ -54,4 +54,13 @@ public class RestaurantController {
         }
         restoService.partialUpdate(identifiant, updates);
     }
+    @DeleteMapping("/{id}")
+    @ResponseStatus(code = HttpStatus.OK)
+    public void deleteById(@PathVariable("id") String identifiant){
+        Restaurant reponse = restoService.findById(identifiant);
+        if(reponse == null){
+            throw new RessourceNotFoundException();
+        }
+        restoService.deleteById(identifiant);
+    }
 }
