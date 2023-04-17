@@ -5,9 +5,8 @@ import com.formation.restaurant.services.MenuService;
 import com.formation.restaurant.services.RestaurantService;
 import com.formation.restaurant.util.CtrlPreConditions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
@@ -30,5 +29,11 @@ public class MenuController {
         Menu reponse = menuService.findById(id);
         CtrlPreConditions.checkfound(reponse);
         return reponse;
+    }
+    @PostMapping("/restaurants/{idResto}/menus")
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public String create(@PathVariable("idResto") String idRestaurant, @RequestBody Menu menu) {
+        CtrlPreConditions.checkfound(restoService.findById(idRestaurant));
+        return menuService.create(idRestaurant, menu);
     }
 }

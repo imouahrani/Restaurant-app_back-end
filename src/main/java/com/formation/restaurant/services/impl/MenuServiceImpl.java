@@ -3,6 +3,7 @@ package com.formation.restaurant.services.impl;
 import com.formation.restaurant.dao.MenuRepository;
 import com.formation.restaurant.dao.RestaurantRepository;
 import com.formation.restaurant.models.Menu;
+import com.formation.restaurant.models.Restaurant;
 import com.formation.restaurant.services.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,5 +29,15 @@ public class MenuServiceImpl implements MenuService {
             return menuRepository.findById(id).get();
         }
         return null;
+    }
+
+    @Override
+    public String create(String idRestaurant, Menu menu) {
+        Restaurant restoEntity = restoRepository.findById(idRestaurant).get();
+        restoEntity.getMenus().add(menu);
+        restoRepository.save(restoEntity);
+        // chercher dans le resto entity le menu et vu que c'est un set, ça retourne le premier recherché
+        Menu menuEntity = restoEntity.getMenus().stream().filter(m -> m.equals(menu)).findFirst().get();
+        return menuEntity.getIdentifiant();
     }
 }
