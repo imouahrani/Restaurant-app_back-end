@@ -36,8 +36,16 @@ public class MenuServiceImpl implements MenuService {
         Restaurant restoEntity = restoRepository.findById(idRestaurant).get();
         restoEntity.getMenus().add(menu);
         restoRepository.save(restoEntity);
-        // chercher dans le resto entity le menu et vu que c'est un set, ça retourne le premier recherché
+        // chercher dans le resto entity le menu tel que le menu = paramètre de la méthode
+        // et vu que c'est un set, ça retourne le premier recherché
+        // implémenter la méthode equal sur le modèle Menu
         Menu menuEntity = restoEntity.getMenus().stream().filter(m -> m.equals(menu)).findFirst().get();
         return menuEntity.getIdentifiant();
+    }
+
+    @Override
+    public void update(String id, Menu menu) {
+        menu.setIdentifiant(id);
+        menuRepository.save(menu);
     }
 }

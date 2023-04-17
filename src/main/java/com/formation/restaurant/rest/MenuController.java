@@ -36,4 +36,11 @@ public class MenuController {
         CtrlPreConditions.checkfound(restoService.findById(idRestaurant));
         return menuService.create(idRestaurant, menu);
     }
+    @PutMapping("/menus/{id}")
+    @ResponseStatus(code = HttpStatus.OK)
+    public void update(@PathVariable("id") String id, @RequestBody Menu menu) {
+        CtrlPreConditions.checkfound(menuService.findById(id));
+        menuService.update(id, menu);
+    }
+
 }

@@ -11,4 +11,6 @@ public interface MenuService {
 
     public String create(String idRestaurant, Menu menu);
 
+    public void update(String id, Menu menu);
+
 }
