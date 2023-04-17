@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.Set;
 
 @RestController
@@ -41,6 +42,12 @@ public class MenuController {
     public void update(@PathVariable("id") String id, @RequestBody Menu menu) {
         CtrlPreConditions.checkfound(menuService.findById(id));
         menuService.update(id, menu);
+    }
+    @PatchMapping("/menus/{id}")
+    @ResponseStatus(code = HttpStatus.OK)
+    public void partialUpdate(@PathVariable("id") String id, @RequestBody Map<String, Object> updates) {
+        CtrlPreConditions.checkfound(menuService.findById(id));
+        menuService.partialUpdate(id, updates);
     }
 
 }
