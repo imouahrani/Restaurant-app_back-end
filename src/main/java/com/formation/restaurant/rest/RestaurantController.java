@@ -1,14 +1,16 @@
 package com.formation.restaurant.rest;
 
-import com.formation.restaurant.exceptions.RessourceNotFoundException;
 import com.formation.restaurant.models.Restaurant;
 import com.formation.restaurant.services.RestaurantService;
 import com.formation.restaurant.util.CtrlPreConditions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/restaurants")
@@ -18,16 +20,23 @@ public class RestaurantController {
     private RestaurantService restoService;
 
     @GetMapping
-    public List<Restaurant> findAll(){
-    // comment à partir de ce controleur on aura accès au service de spring ? => injection de dépendances
-        return restoService.findAll();
+    public List<Restaurant> findAll() {
+        List<Restaurant> restaurants = restoService.findAll();
+        // créer un link pour accéder au détails d'un restaurant
+        for (Restaurant restaurant : restaurants) {
+            Link selfLink = WebMvcLinkBuilder.linkTo(RestaurantController.class).slash(restaurant.getId()).withSelfRel();
+            restaurant.add(selfLink);
+        }
+        return restaurants;
     }
-    // ajouter le @GetMapping pour accéder via Insomnia
+
     @GetMapping("/{id}")
-    public Restaurant findById(@PathVariable("id") String identifiant){
-        // comment à partir de ce controleur on aura accès au service de spring ? => injection de dépendances
+    public Restaurant findById(@PathVariable("id") String identifiant) {
         Restaurant reponse = restoService.findById(identifiant);
         CtrlPreConditions.checkfound(reponse);
+        // créer un link pour accéder au menu d'un restaurant
+        Link menusLink = WebMvcLinkBuilder.linkTo(RestaurantController.class).slash(reponse.getId()).slash("menus").withRel("menus");
+        reponse.add(menusLink);
         return reponse;
     }
     @PostMapping
