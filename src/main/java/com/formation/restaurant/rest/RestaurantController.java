@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+//@CrossOrigin("http://localhost:4200")
+@CrossOrigin("*")
 @RequestMapping("/restaurants")
 public class RestaurantController {
     // il faut injecter via autowired sinon ça sera un null pointer exception ! car l'objet est vide
